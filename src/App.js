@@ -1,16 +1,23 @@
-import React from "react"
+import { CssBaseline } from "@material-ui/core"
+import Theme from "./Theme"
 import { css } from "@emotion/react"
-import Hello from "./Hello.js"
+import Input from "./Input.js"
 
 const App = () => {
   return (
-    <div
-      css={css`
-        background-color: pink;
-      `}
-    >
-      <h1>I'm yellow</h1>
-      <Hello />
-    </div>
+    <Theme>
+      <CssBaseline />
+      <div
+        css={css`
+          display: grid;
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+          grid-gap: 8px;
+        `}
+      >
+        <Input />
+      </div>
+    </Theme>
   )
 }
+
+export default App

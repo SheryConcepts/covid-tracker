@@ -5,7 +5,7 @@ module.exports = {
   },
   plugins: [
     "@snowpack/plugin-webpack",
-    "@snowpack/plugin-react-refresh",
+    // "@snowpack/plugin-react-refresh",
     "@snowpack/plugin-babel",
   ],
 }
