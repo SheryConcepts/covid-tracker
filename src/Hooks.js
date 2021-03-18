@@ -1,7 +1,6 @@
 import { useReducer, useEffect } from "react"
 
 export const useFetch = (url) => {
-  console.log(url)
   const reducer = (state, action) => {
     if (action.type === "LOADING") {
       return {
@@ -39,7 +38,6 @@ export const useFetch = (url) => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         dispatch({
           type: "SUCCESS",
           payload: {
@@ -55,7 +53,7 @@ export const useFetch = (url) => {
           },
         })
       )
-  }, [url, dispatch])
+  }, [url])
 
   return [state.response, state.loading, state.error]
 }

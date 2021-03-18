@@ -1,72 +1,15 @@
 import { Card, CardContent, Typography } from "@material-ui/core"
-import { useState, useReducer, useEffect } from "react"
 import { useFetch } from "./Hooks.js"
 import { css } from "@emotion/react"
 
-// const reducer = (state, action) => {
-//   if (action.type === "LOADING") {
-//     return {
-//       response: false,
-//       loading: true,
-//       error: false,
-//     }
-//   }
-//   if (action.type === "ERROR") {
-//     return {
-//       response: false,
-//       loading: false,
-//       error: action.payload.error,
-//     }
-//   }
-//   if (action.type === "SUCCESS") {
-//     return {
-//       response: action.payload.response,
-//       loading: false,
-//       error: false,
-//     }
-//   }
-//   return state
-// }
 const Cases = (props) => {
-  // const [{ response, loading, error }, dispatch] = useReducer(reducer, {
-  //   response: false,
-  //   loading: true,
-  //   error: false,
-  // })
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "LOADING",
-  //   })
-  //   fetch(endpoint)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data)
-  //       dispatch({
-  //         type: "SUCCESS",
-  //         payload: {
-  //           response: data,
-  //         },
-  //       })
-  //     })
-  //     .catch((error) =>
-  //       dispatch({
-  //         type: "ERROR",
-  //         payload: {
-  //           error,
-  //         },
-  //       })
-  //     )
-  // }, [dispatch])
+  const { input, type } = props
 
-  const { input, styles, type } = props
-  // console.log(input, type)
   const endpoint =
     input === "Worldwide"
       ? "https://covid19.mathdro.id/api"
       : `https://covid19.mathdro.id/api/countries/${input}`
-  console.log(endpoint)
   const [response, loading, error] = useFetch(endpoint)
-  console.log(response)
 
   let cases
   if (type === "confirmed") {
@@ -77,22 +20,30 @@ const Cases = (props) => {
     cases = (response && response.recovered.value) || ""
   }
 
-  console.log(cases)
+  let description
+  if (type === "confirmed") {
+    description = "Covid-19 cases have been reported"
+  } else if (type === "deaths") {
+    description = "Covid-19 patients have been died"
+  } else if (type === "recovered") {
+    description = "Covid-19 patients have been recovered"
+  }
+
   return (
-    <div>
+    <div
+      css={css`
+        flex: 1 200px;
+        margin: 8px;
+      `}
+    >
       {loading ? (
         <Typography variant="body1">Loading</Typography>
       ) : (
-        <Card
-          variant="elevation"
-          css={css`
-            ${styles}
-          `}
-        >
+        <Card variant="elevation">
           <CardContent>
             <Typography variant="body2">{type.toUpperCase()}</Typography>
             <Typography variant="h4">{cases}</Typography>
-            <Typography variant="caption">cases have been reported</Typography>
+            <Typography variant="caption">{description}</Typography>
           </CardContent>
         </Card>
       )}

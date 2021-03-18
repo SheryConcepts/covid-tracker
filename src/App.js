@@ -2,6 +2,7 @@ import { CssBaseline } from "@material-ui/core"
 import Theme from "./Theme"
 import { css } from "@emotion/react"
 import Input from "./Input.js"
+import Header from "./Header.js"
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           grid-gap: 8px;
         `}
       >
+        <Header />
         <Input />
       </div>
     </Theme>
