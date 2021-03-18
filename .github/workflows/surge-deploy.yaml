@@ -1,0 +1,24 @@
+name: surge-deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Build
+        run: |
+          npm install
+          npm run build
+      - name: Install surge
+        run: npm install -g surge
+      - name: deploy
+        run: surge ./build https://shery-covid-tracker.surge.sh --token ${{secrets.SURGE_TOKEN}}

@@ -1,4 +1,4 @@
-## react-dev-setup
+## Covid-19 Tracking App
 
 ## Building and running on localhost
 
